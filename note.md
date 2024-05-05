@@ -70,6 +70,8 @@ agar tanggal nya ke input otomatis silahakan tambahkanya created_at dan updated_
 
 kemudian values nya di isi now(), now() saja. 
 
+
+<!-- Membuat Prepared Statement -->
 insertPrepared
 Apa yang baru saja kita lakukan adalah menjalankan query "apa adanya". Supaya lebih aman,
 query ini lebih baik ditulis dengan teknik prepared statement, dimana terdapat pemisahan
@@ -87,3 +89,42 @@ public function insertPrepared(){
     }
 
 setiap tanda tanya mempunyai pasangan masing masing
+
+2. Mengupdate Data (DB::update)
+<!-- Mengupdate Data (DB::update) -->
+untuk proses update tidak jauh beda dengan di query 
+sql yaitu menggunakan update dan cara nya sama seperti sebelum sebelum nya
+
+3. Menghapus Data (DB::update)
+untuk proses hapus tidak jauh beda dengan di query sql jg kita ingin menghapus data berdasarkan apa yang kita inginkan disini saya menggunakan berdasarkan id 
+jika berdasarkan yang lain bisa menysuaikan
+public function delete(){
+ $result = DB::delete(
+    'DELETE FROM mahasiswas WHERE nama = ?', ['James Situmorang']
+    );
+    dump($result);
+}
+
+4. menampilkan semua data 
+cara nya juga sama ya dengan query sql sebelum sebelumnya 
+    public function select(){
+        $result = DB::select("SELECT * FROM mahasiswas");
+        dump($result);
+    }
+
+5. mencoba menampilkan data ke view
+untuk menampilkan data nya ke view kita menggunaakn colaction sebelum nya kita sudah mempelajari nya di colaction
+
+    public function selectTampil(){
+        $result = DB::select("SELECT * FROM mahasiswas");
+        return view('tampil',  ['mahasiswas' => $result]);
+    }
+di bagian ini dia akan mengembalikan nilai nya ke yang ada di file tampil, kemudian ada sebuah colaction dengan nama mahasiswas dan ini yang nanti nya menjadi variable di untuk menangkap data nya dan kemudian menyimpan nilai dari $result
+
+6. menampilkan berdasarkan yang kita inginkan
+    public function selectWhere(){
+        $result = DB::select("SELECT * FROM mahasiswas WHERE ipk > ? ORDER BY nama ASC", [3]);
+        return view('tampil',  ['mahasiswas' => $result]);
+    }
+disini kita menampilkan data yang ipk nya 3 dan nama nya itu mulai dari A-Z
+ atau (asc)
