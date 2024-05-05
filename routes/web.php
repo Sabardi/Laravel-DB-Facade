@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MahasiswaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+route::get('/', [MahasiswaController::class, 'index']);
